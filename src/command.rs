@@ -21,11 +21,11 @@ pub enum Command {
     ColumnAddressHigh(u8),
     /// Set page address
     PageAddress(Page),
-    /// Set display start line from 0-63
+    /// Set display start line from 0-127
     StartLine(u8),
     /// Reverse columns from 127-0
     SegmentRemap(bool),
-    /// Set multipex ratio from 15-63 (MUX-1)
+    /// Set multipex ratio from 1-127 (MUX-1)
     Multiplex(u8),
     /// Scan from COM[n-1] to COM0 (where N is mux ratio)
     ReverseComDir(bool),
@@ -60,7 +60,7 @@ impl Command {
             Command::ColumnAddressLow(addr) => ([0xF & addr, 0, 0, 0, 0, 0, 0], 1),
             Command::ColumnAddressHigh(addr) => ([0x10 | (0xF & addr), 0, 0, 0, 0, 0, 0], 1),
             Command::PageAddress(page) => ([0xB0 | (page as u8), 0, 0, 0, 0, 0, 0], 1),
-            Command::StartLine(line) => ([0b11011100 , line, 0, 0, 0, 0, 0], 1),
+            Command::StartLine(line) => ([0b11011100 , line, 0, 0, 0, 0, 0], 2),
             Command::SegmentRemap(remap) => ([0xA0 | (remap as u8), 0, 0, 0, 0, 0, 0], 1),
             Command::Multiplex(ratio) => ([0xA8, ratio, 0, 0, 0, 0, 0], 2),
             Command::ReverseComDir(rev) => ([0xC0 | ((rev as u8) << 3), 0, 0, 0, 0, 0, 0], 1),
