@@ -31,10 +31,6 @@ pub enum Command {
     ReverseComDir(bool),
     /// Set vertical shift
     DisplayOffset(u8),
-    /// Setup com hardware configuration
-    /// First value indicates sequential (false) or alternative (true)
-    /// pin configuration.
-    ComPinConfig(bool),
     /// Set up display clock.
     /// First value is oscillator frequency, increasing with higher value
     /// Second value is divide ratio - 1
@@ -69,7 +65,6 @@ impl Command {
             Command::Multiplex(ratio) => ([0xA8, ratio, 0, 0, 0, 0, 0], 2),
             Command::ReverseComDir(rev) => ([0xC0 | ((rev as u8) << 3), 0, 0, 0, 0, 0, 0], 1),
             Command::DisplayOffset(offset) => ([0xD3, offset, 0, 0, 0, 0, 0], 2),
-            Command::ComPinConfig(alt) => ([0xDA, 0x02 | ((alt as u8) << 4), 0, 0, 0, 0, 0], 2),
             Command::DisplayClockDiv(fosc, div) => {
                 ([0xD5, ((0xF & fosc) << 4) | (0xF & div), 0, 0, 0, 0, 0], 2)
             }

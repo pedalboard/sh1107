@@ -68,15 +68,6 @@ where
 
         self.set_rotation(display_rotation)?;
 
-        match self.display_size {
-            DisplaySize::Display128x32 => Command::ComPinConfig(false).send(&mut self.iface),
-            DisplaySize::Display128x128
-            | DisplaySize::Display64x128
-            | DisplaySize::Display128x64
-            | DisplaySize::Display128x64NoOffset
-            | DisplaySize::Display132x64 => Command::ComPinConfig(true).send(&mut self.iface),
-        }?;
-
         Command::Contrast(0x80).send(&mut self.iface)?;
         Command::PreChargePeriod(0x1, 0xF).send(&mut self.iface)?;
         Command::VcomhDeselect(VcomhLevel::Auto).send(&mut self.iface)?;
