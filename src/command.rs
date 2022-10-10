@@ -77,7 +77,7 @@ impl Command {
                 [0xD9, ((0xF & phase2) << 4) | (0xF & phase1), 0, 0, 0, 0, 0],
                 2,
             ),
-            Command::VcomhDeselect(level) => ([0xDB, (level as u8) << 4, 0, 0, 0, 0, 0], 2),
+            Command::VcomhDeselect(level) => ([0xDB, level as u8, 0, 0, 0, 0, 0], 2),
             Command::Noop => ([0xE3, 0, 0, 0, 0, 0, 0], 1),
             Command::ChargePump(en) => ([0xAD, 0x8A | (en as u8), 0, 0, 0, 0, 0], 2),
         };
@@ -175,11 +175,11 @@ pub enum NFrames {
 #[allow(dead_code)]
 pub enum VcomhLevel {
     /// 0.65 * Vcc
-    V065 = 0b001,
+    V065 = 0b0010000,
     /// 0.77 * Vcc
-    V077 = 0b010,
+    V077 = 0b0100000,
     /// 0.83 * Vcc
-    V083 = 0b011,
+    V083 = 0b0110000,
     /// Auto
-    Auto = 0b100,
+    Auto = 0b1000000,
 }
