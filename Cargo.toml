@@ -16,11 +16,11 @@ edition = "2018"
 targets = [ "thumbv7m-none-eabi", "thumbv7em-none-eabihf" ]
 
 [dependencies]
-embedded-hal = "0.2.3"
+embedded-hal = "0.2.7"
 
 [dependencies.embedded-graphics]
 optional = true
-version = "0.7.1"
+version = "0.8.1"
 
 [dev-dependencies]
 cortex-m = { version = "0.7" }
